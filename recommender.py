@@ -6,9 +6,9 @@ import pickle
 import operator
 import tensorflow as tf
 from glob import glob
-MODEL_PATH = './classify_image_graph_def.pb'
+MODEL_PATH = './obj/classify_image_graph_def.pb'
 
-with open("features.pickle", mode='rb') as f:
+with open("./obj/features.pickle", mode='rb') as f:
    features = pickle.load(f)
 
 
@@ -25,7 +25,7 @@ def similar_to(img_data, num=5):
         "url": "https://s3-ap-northeast-1.amazonaws.com/image-recommender/test/"+images[k].split("/")[-1],
         "similarity": round(1 - scipy.spatial.distance.cosine(feature, v), 3)}
         for k,v in enumerate(features)]
-    return sorted(sims, key=lambda o: o["similarity"], reverse=True)[:num + 1]
+    return sorted(sims, key=lambda o: o["similarity"], reverse=True)[:num]
 
 def show_sim_image(img_id):
     id_list = similar_to(img_id, distance=True)

@@ -8,6 +8,8 @@
 
 <div id="app">
     <input @change="selectedFile" type="file">
+    <br>
+    number <input type="number" v-model="num">
     <button @click="upload" type="submit">search</button>
 </div>
 <div id="preview">
@@ -40,7 +42,8 @@
     new Vue({
         el: '#app',
         data: {
-            uploadFile: null
+            uploadFile: null,
+            num: 5
         },
         methods: {
             selectedFile: function(e) {
@@ -56,7 +59,9 @@
             upload: function() {
                 let formData = new FormData();
                 console.log(this.uploadFile.name);
+                console.log(this.num);
                 formData.append("upload", this.uploadFile);
+                formData.append("num", this.num);
                 let config = {
                     headers: {
                         'content-type': 'multipart/form-data'
@@ -64,8 +69,7 @@
                 };
                 axios.post('upload', formData, config)
                     .then(function(response) {
-                        console.log(response);
-                        console.log(resultList);
+                        console.log(response.data);
                         resultList.items = response.data
                     })
                     .catch(function(error) {

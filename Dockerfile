@@ -13,8 +13,8 @@ RUN mkdir ${app_path}/logs/
 
 ADD app.py ${app_path}
 ADD recommender.py ${app_path}
-ADD views/ ${app_path}
-ADD obj/ ${app_path}
+ADD views ${app_path}/views
+ADD obj ${app_path}/obj
 
 ADD requirements.txt ${app_path}
 ADD package.json ${app_path}

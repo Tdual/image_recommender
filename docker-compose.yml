@@ -1,0 +1,14 @@
+version: "3"
+services:
+  image-recommender:
+    image: image-recommender:latest
+    deploy:
+      resources:
+        reservations:
+          memory: "1000m"
+    ports:
+      - 8000:8000
+    privileged: false
+    environment:
+      DUMMY: "dummy"
+    command: bash -c "cd /opt/app/ && python3 app.py" 

@@ -3,6 +3,7 @@ import sys
 import json
 import recommender as reco
 
+file_dir = os.path.abspath(os.path.dirname(__file__))
 
 @route("/")
 def upload():

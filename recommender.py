@@ -6,9 +6,10 @@ import pickle
 import operator
 import tensorflow as tf
 from glob import glob
-MODEL_PATH = './obj/classify_image_graph_def.pb'
+file_dir = os.path.abspath(os.path.dirname(__file__))
+MODEL_PATH = file_dir+'/obj/classify_image_graph_def.pb'
 
-with open("./obj/features.pickle", mode='rb') as f:
+with open(file_dir+"/obj/features.pickle", mode='rb') as f:
    features = pickle.load(f)
 
 

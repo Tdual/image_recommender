@@ -12,10 +12,13 @@ MODEL_PATH = file_dir+'/obj/classify_image_graph_def.pb'
 with open(file_dir+"/obj/features.pickle", mode='rb') as f:
    features = pickle.load(f)
 
+with open(file_dir+"/obj/img_name.pickle", mode='rb') as f:
+   img_name = pickle.load(f)
+
 
 def get_image_names():
-    imgs = glob(os.path.join("./images", "*.jpg"))
-    imgs = np.sort(imgs)
+    # imgs = glob(os.path.join("./images", "*.jpg"))
+    imgs = np.sort(img_name)
     return imgs
 
 def similar_to(img_data, num=5):

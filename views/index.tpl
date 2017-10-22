@@ -9,7 +9,7 @@
 <div id="app">
     <input @change="selectedFile" type="file">
     <br>
-    number <input type="number" v-model="num">
+    number <input type="number" min="1" max="100" v-model="num">
     <button @click="upload" type="submit">search</button>
 </div>
 <div id="preview">

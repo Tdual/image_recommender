@@ -105,4 +105,8 @@ images/
 obj/
 node_modules/
 package-lock.json
+upload.zip
 
+.DS_Store
+.dockerignore
+.elasticbeanstalk/

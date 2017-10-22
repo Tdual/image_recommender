@@ -21,3 +21,6 @@ ADD package.json ${app_path}
 
 RUN pip3 install -r ${app_path}/requirements.txt
 RUN npm --prefix ${app_path} install ${app_path}
+
+EXPOSE 8000
+CMD ["bash","-c","cd /opt/app/ && python3 app.py"]

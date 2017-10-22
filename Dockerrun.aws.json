@@ -1,0 +1,19 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "161540357846.dkr.ecr.ap-northeast-1.amazonaws.com/image-recommender:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8000"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/var/app/mydb",
+      "ContainerDirectory": "/etc/mysql"
+    }
+  ],
+  "Logging": "/opt/app/logs/test.log"
+}

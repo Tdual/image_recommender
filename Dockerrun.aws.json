@@ -15,5 +15,5 @@
       "ContainerDirectory": "/etc/mysql"
     }
   ],
-  "Logging": "/opt/app/logs/test.log"
+  "Logging": "/opt/app/logs/"
 }

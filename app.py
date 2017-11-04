@@ -18,10 +18,17 @@ fh.setFormatter(formatter)
 sh.setFormatter(formatter)
 
 
+@get('/media/:path#.+#')
+def server_static(path):
+    return static_file(path, root=os.path.join(file_dir, "views"))
 
 @route("/")
 def upload():
     return template("index")
+
+@get('/favicon.ico')
+def get_favicon():
+    return server_static('favicon.ico')
 
 @route('/upload', method='POST')
 def do_upload():
@@ -33,10 +40,6 @@ def do_upload():
         return 'File extension not allowed!'
     img = upload.file.read()
 
-    #upload.filename = "AaaaAAAAAAA.jpg"
-    #upload.save("./img")
-    #res = reco.similar_to(0, distance=True)
-    #res = reco.decode("./img/"+upload.filename)
     try:
         res = reco.similar_to(img, num)
     except Exception as e:

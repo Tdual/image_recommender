@@ -2,9 +2,11 @@
 <head>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
 <H1>Image recommender </H1>
+<p> Please upload a photo of clothes. </p>
 
 <div id="app">
     <input @change="selectedFile" type="file">
@@ -52,7 +54,10 @@
                 let files = e.target.files;
                 this.uploadFile = files[0];
 
-                reader.onload = e => {preview.img = e.target.result;};
+                reader.onload = e => {
+                  preview.img = e.target.result;
+                  resultList.items = []
+                };
                 reader.readAsDataURL(this.uploadFile);
 
             },

@@ -2,6 +2,7 @@
 <head>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="vue-spinner.js"></script>
   <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
@@ -9,12 +10,24 @@
 <p> Please upload a photo of clothes. </p>
 
 <div id="app">
-    <input @change="selectedFile" type="file">
-    <br>
-    number <input type="number" min="1" max="100" v-model="num">
-    <button @click="upload" type="submit">search</button>
+  <input type="radio" id="one" value="upload" v-model="picked">
+  <label for="one">upload a photo</label>
+  <input type="radio" id="two" value="url" v-model="picked">
+  <label for="two">get from URL</label>
+  <div v-if="picked == 'upload'">
+    photo: <input @change="selectedFile" type="file">
+  </div>
+  <div v-else>
+    URL: <input type="text" v-model=url>
+  </div>
+  number: <input type="number" min="1" max="100" v-model="num">
+  <br>
+  <button @click="search" type="submit">search</button>
+  <center>
+    <grid-loader :loading="loading" :color="color" :size="size"></grid-loader>
+  </center>
 </div>
-<div id="preview">
+<div id="preview" >
   <img :src="img">
 </div>
 <ul id="example-1">
@@ -27,6 +40,8 @@
 </body>
 <script>
 (function(){
+    var PulseLoader = VueSpinner.PulseLoader
+    var GridLoader = VueSpinner.GridLoader
     let preview = new Vue({
       delimiters: ['${', '}'],
       el: '#preview',
@@ -45,7 +60,16 @@
         el: '#app',
         data: {
             uploadFile: null,
-            num: 5
+            num: 5,
+            picked: "upload",
+            url: "",
+            color: "blue",
+            size: "20",
+            loading: false
+        },
+        components: {
+          'PulseLoader': PulseLoader,
+          'GridLoader': GridLoader
         },
         methods: {
             selectedFile: function(e) {
@@ -61,25 +85,52 @@
                 reader.readAsDataURL(this.uploadFile);
 
             },
-            upload: function() {
+            search: function() {
+              if (this.picked == "upload"){
                 let formData = new FormData();
-                console.log(this.uploadFile.name);
-                console.log(this.num);
-                formData.append("upload", this.uploadFile);
-                formData.append("num", this.num);
-                let config = {
+                if (this.uploadFile){
+                  console.log(this.uploadFile.name);
+                  console.log(this.num);
+                  formData.append("upload", this.uploadFile);
+                  formData.append("num", this.num);
+                  let config = {
                     headers: {
                         'content-type': 'multipart/form-data'
                     }
-                };
-                axios.post('upload', formData, config)
-                    .then(function(response) {
-                        console.log(response.data);
-                        resultList.items = response.data
+                  };
+                  this.loading = true;
+                  axios.post('upload', formData, config)
+                    .then(response => {
+                      console.log(response.data);
+                      resultList.items = response.data
+                      this.loading = false;
                     })
-                    .catch(function(error) {
+                    .catch(error => {
+                      this.loading = false;
                     })
-            }
+                }else{
+                  alert("Please select a photo.");
+                }
+
+              } else {
+                preview.img = this.url
+                this.loading = true;
+                axios.get("search/url", {
+                  params: {
+                    url: this.url,
+                    num: this.num
+                  }
+                })
+                .then(response => {
+                  console.log(response.data);
+                  resultList.items = response.data
+                  this.loading = false;
+                })
+                .catch(error => {
+                  this.loading = false;
+                })
+              }
+          }
         }
     });
 })();

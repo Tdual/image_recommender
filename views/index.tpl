@@ -117,21 +117,17 @@ input[type=checkbox]:checked + .checkbox:before {
   border-radius: 12px;
 }
 
-div {
-{ margin: 2px 50px; }
-}
-
 </style>
 <body>
 <H1>Image recommender </H1>
-<p> Please upload a photo of clothes. </p>
+<H2> Please upload a photo of clothes. </H2>
 
 <div id="app">
   <input type="radio" id="one" value="upload" v-model="picked">
   <label for="one" class="radio">upload a photo</label>
   <input type="radio" id="two" value="url" v-model="picked">
   <label for="two" class="radio">get from URL</label>
-  <div v-if="picked == 'upload'">
+  <div v-if="picked == 'upload'" style=" margin : 30px ;">
     <label for="file_photo" id="flabel">
     +Select a photo <input @change="selectedFile" type="file" style="display:none;" id="file_photo">
     </label>
@@ -142,9 +138,7 @@ div {
   <div>
   Number: <input type="number" min="1" max="100" v-model="num">
   </div>
-  <div>
-  <button @click="search" type="submit" style="size:20">search</button>
-  </div>
+  <button @click="search" type="submit" style="size:20; margin:10px;">search</button>
   <center>
     <grid-loader :loading="loading" :color="color" :size="size"></grid-loader>
   </center>

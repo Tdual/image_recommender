@@ -119,8 +119,10 @@ input[type=checkbox]:checked + .checkbox:before {
 
 </style>
 <body>
-<H1>Image recommender </H1>
-<H2> Please upload a photo of clothes. </H2>
+<H1>Image recommender</H1>
+The recommender and search engine for clothes by photos. <br>
+Demo items are <a href="http://jmcauley.ucsd.edu/data/tradesy/" target="_blank">tradesy data.</a>
+<H3> Please upload a photo of clothes. </H3>
 
 <div id="app">
   <input type="radio" id="one" value="upload" v-model="picked">
@@ -153,6 +155,8 @@ input[type=checkbox]:checked + .checkbox:before {
   </li>
 </ul>
 <div>
+<hr>
+Created by Tdual (<a href="https://twitter.com/tdualdir" target="_blank">twitter</a>)
 </body>
 <script>
 (function(){
@@ -217,12 +221,15 @@ input[type=checkbox]:checked + .checkbox:before {
                   this.loading = true;
                   axios.post('upload', formData, config)
                     .then(response => {
-                      console.log(response.data);
-                      resultList.items = response.data
                       this.loading = false;
+                      resultList.items = response.data
                     })
                     .catch(error => {
                       this.loading = false;
+                      const data  = error.response.data;
+                      if (data.code == 0){
+                        alert(data.message+" The max numebr is 1000.");
+                      }
                     })
                 }else{
                   alert("Please select a photo.");
@@ -238,12 +245,15 @@ input[type=checkbox]:checked + .checkbox:before {
                   }
                 })
                 .then(response => {
-                  console.log(response.data);
-                  resultList.items = response.data
                   this.loading = false;
+                  resultList.items = response.data
                 })
                 .catch(error => {
                   this.loading = false;
+                  const data  = error.response.data;
+                  if (data.code == 0){
+                    alert(data.message+" The max numebr is 1000.");
+                  }
                 })
               }
           }

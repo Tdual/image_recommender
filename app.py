@@ -41,6 +41,12 @@ def do_upload():
 
     upload = request.files.get('upload')
     num = int(request.params.get('num', 5))
+    if num > 1000:
+        body = {"message": "limit of number.", "code": 0}
+        response = HTTPResponse(status=500, body=body)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
     logger.info("request numuber of images: {}".format(num))
     if not upload.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
         return 'File extension not allowed!'
@@ -50,13 +56,20 @@ def do_upload():
         res = reco.similar_to(img, num)
     except Exception as e:
         logger.error(e)
+    body = json.dumps(res)
+    response = HTTPResponse(status=200, body=body)
     response.headers['Content-Type'] = 'application/json'
-    return json.dumps(res)
+    return response
 
 @route('/search/url', method='GET')
 def get_images():
     url = request.params.get("url", "")
     num = int(request.params.get('num', 5))
+    if num > 1000:
+        body = {"message": "limit of number.", "code": 0}
+        response = HTTPResponse(status=500, body=body)
+        response.headers['Content-Type'] = 'application/json'
+        return response
     logger.info(url)
     r = requests.get(url)
     img = r.content
@@ -64,9 +77,11 @@ def get_images():
         res = reco.similar_to(img, num)
     except Exception as e:
         logger.error(e)
+
+    body = json.dumps(res)
+    response = HTTPResponse(status=200, body=body)
     response.headers['Content-Type'] = 'application/json'
-    return json.dumps(res)
-    #resp = HTTPResponse(status=200, body=r.content)
+    return response
     #resp.content_type = 'image/png'
     #resp.set_header('Content-Length', str(len(r.content)))
     #return resp

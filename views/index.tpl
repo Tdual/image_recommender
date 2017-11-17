@@ -1,6 +1,7 @@
 <html>
 <head>
   <script src="https://unpkg.com/vue"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="vue-spinner.js"></script>
   <link rel="shortcut icon" href="favicon.ico" />
@@ -116,6 +117,12 @@ input[type=checkbox]:checked + .checkbox:before {
   padding: 8px;
   border-radius: 12px;
 }
+@media only screen and (max-width: 767px){
+img {
+  width: 100%;
+	height: auto;
+}
+}
 
 </style>
 <body>
@@ -140,12 +147,12 @@ Demo items are <a href="http://jmcauley.ucsd.edu/data/tradesy/" target="_blank">
   <div>
   Number: <input type="number" min="1" max="100" v-model="num">
   </div>
-  <button @click="search" type="submit" style="size:20; margin:10px;">search</button>
+  <button @click="search" type="submit" style="margin:10px;">search</button>
   <center>
     <grid-loader :loading="loading" :color="color" :size="size"></grid-loader>
   </center>
 </div>
-<div id="preview" >
+<div id="preview" v-if="img">
   <img :src="img">
 </div>
 <ul id="example-1">

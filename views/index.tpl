@@ -24,10 +24,9 @@ input[type=text] {
 }
 
 input[type=number] {
-    width: 10%;
+    width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
-    font-size: 1.2em;
     box-sizing: border-box;
 }
 
@@ -118,10 +117,20 @@ input[type=checkbox]:checked + .checkbox:before {
   border-radius: 12px;
 }
 @media only screen and (max-width: 767px){
-img {
-  width: 100%;
-	height: auto;
+  img {
+    width: 100%;
+	  height: auto;
+  }
 }
+
+@media only screen and (min-width: 767px){
+  input[type=number] {
+      width: 10%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      font-size: 1.2em;
+      box-sizing: border-box;
+ }
 }
 
 </style>

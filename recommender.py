@@ -6,6 +6,7 @@ import pickle
 import operator
 import tensorflow as tf
 from glob import glob
+
 file_dir = os.path.abspath(os.path.dirname(__file__))
 MODEL_PATH = file_dir+'/obj/classify_image_graph_def.pb'
 

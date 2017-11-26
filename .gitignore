@@ -110,3 +110,5 @@ upload.zip
 .DS_Store
 .dockerignore
 .elasticbeanstalk/
+
+shelf.db

@@ -32,6 +32,10 @@ def upload():
 def get_favicon():
     return server_static('favicon.ico')
 
+@get('/example.png')
+def get_image():
+    return server_static('example.png')
+
 @get('/vue-spinner.js')
 def get_spinner():
     return server_static("vue-spinner.js")

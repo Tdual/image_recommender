@@ -5,6 +5,16 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="vue-spinner.js"></script>
   <link rel="shortcut icon" href="favicon.ico" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110214905-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-110214905-1');
+  </script>
+
 </head>
 <style>
 button {
@@ -133,6 +143,11 @@ input[type=checkbox]:checked + .checkbox:before {
  }
 }
 
+#example {
+  width: 100%;
+	height: auto;
+}
+
 </style>
 <body>
 <H1>Image recommender</H1>
@@ -171,6 +186,9 @@ Demo items are <a href="http://jmcauley.ucsd.edu/data/tradesy/" target="_blank">
   </li>
 </ul>
 <div>
+<hr>
+<h3>Example</h3>
+<img src="example.png" id="example">
 <hr>
 Created by Tdual (<a href="https://twitter.com/tdualdir" target="_blank">twitter</a>)
 </body>

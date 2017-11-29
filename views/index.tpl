@@ -261,9 +261,15 @@ Created by Tdual (<a href="https://twitter.com/tdualdir" target="_blank">twitter
                     .catch(error => {
                       this.loading = false;
                       const data  = error.response.data;
-                      if (data.code == 0){
-                        alert(data.message+" The max numebr is 1000.");
+                      let error_msg = "";
+                      switch (data.code){
+                        case 0:
+                          error_msg = data.message+" The max numebr is 1000.";
+                          break;
+                        default:
+                          error_msg = data.message;
                       }
+                      alert(error_msg);
                     })
                 }else{
                   alert("Please select a photo.");
@@ -285,9 +291,18 @@ Created by Tdual (<a href="https://twitter.com/tdualdir" target="_blank">twitter
                 .catch(error => {
                   this.loading = false;
                   const data  = error.response.data;
-                  if (data.code == 0){
-                    alert(data.message+" The max numebr is 1000.");
+                  let error_msg = "";
+                  switch (data.code){
+                    case 0:
+                      error_msg = data.message+" The max numebr is 1000.";
+                      break;
+                    case 1:
+                      error_msg = data.message+" Could you check the URL?";
+                      break;
+                    default:
+                      error_msg = data.message;
                   }
+                  alert(error_msg);
                 })
               }
           }

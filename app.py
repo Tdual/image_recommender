@@ -71,16 +71,27 @@ def get_images():
     num = int(request.params.get('num', 5))
     if num > 1000:
         body = {"message": "limit of number.", "code": 0}
-        response = HTTPResponse(status=500, body=body)
+        response = HTTPResponse(status=400, body=body)
         response.headers['Content-Type'] = 'application/json'
         return response
     logger.info(url)
-    r = requests.get(url)
-    img = r.content
     try:
+        r = requests.get(url)
+    except Exception as e:
+        logger.error(e)
+        body = {"message": "could not find a image.", "code": 1}
+        response = HTTPResponse(status=400, body=body)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+    try:
+        img = r.content
         res = reco.similar_to(img, num)
     except Exception as e:
         logger.error(e)
+        body = {"message": "could not get similar images.", "code": 2}
+        response = HTTPResponse(status=500, body=body)
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
     body = json.dumps(res)
     response = HTTPResponse(status=200, body=body)

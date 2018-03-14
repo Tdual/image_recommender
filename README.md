@@ -1,2 +1,2 @@
 # image_recommender
-web service of image recommend.
+The web app of image recommender.

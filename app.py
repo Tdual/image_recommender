@@ -80,6 +80,9 @@ def get_images():
 
     try:
         r = requests.get(url)
+        if "image/" not in r.headers['content-type']:
+            body = {"message": "URL is no image.", "code": 3}
+            return response_json(body, status=400)
     except Exception as e:
         logger.error(e)
         body = {"message": "could not find a image.", "code": 1}
